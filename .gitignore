@@ -11,8 +11,14 @@ book.pdf
 _*.py
 _*.json
 _*.log
+_*.txt
 _verify_out/
 _pdf_build.log
+_pdf_chunks/
+
+# Claude Code 로컬 상태
+.claude/scheduled_tasks.lock
+.claude/settings.local.json
 
 # Python
 __pycache__/
