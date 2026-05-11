@@ -1,0 +1,40 @@
+# 풀버전 자산 (GitHub 용량 초과)
+img/
+book.html
+book.pdf
+
+# HTML 백업
+*.bak-*
+*.backup
+
+# 임시 작업 스크립트·로그
+_*.py
+_*.json
+_*.log
+_verify_out/
+_pdf_build.log
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# 비공개 자료
+docs/HANDOFF.md
+docs/archive/
+docs/MAPPING-AUDIT.md
+
+# zip 패키지
+*.zip
+
+# Excel 원본 (외부 보관)
+*.xlsx
+
+# Chrome profile
+chrome-profile/
+null
