@@ -15,6 +15,11 @@ _*.txt
 _verify_out/
 _pdf_build.log
 _pdf_chunks/
+_pdf_chunks_lite/
+
+# PDF 정본 (GitHub Release SSOT — repo 미추적)
+book-lite.pdf
+*.pdf
 
 # Claude Code 로컬 상태
 .claude/scheduled_tasks.lock
