@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>청킹 책 본문 ↔ DB 자료 대조 보고서 — 2026-05-20</title>
+<style>
+  body { font-family: 'Pretendard', -apple-system, sans-serif; max-width: 1100px; margin: 40px auto; padding: 0 24px; color: #2A2F32; line-height: 1.7; }
+  h1 { font-size: 28px; border-bottom: 3px solid #2563EB; padding-bottom: 12px; margin-top: 0; }
+  h2 { font-size: 22px; color: #2563EB; margin-top: 50px; border-left: 4px solid #2563EB; padding-left: 12px; }
+  h3 { font-size: 17px; color: #475569; margin-top: 28px; }
+  .meta { background: #F1F5F9; padding: 16px 20px; border-radius: 8px; margin-bottom: 30px; }
+  .meta a { color: #2563EB; word-break: break-all; }
+  .summary { background: #FEF3C7; border-left: 4px solid #F59E0B; padding: 16px 20px; border-radius: 4px; margin: 20px 0; font-size: 16px; }
+
+  table { border-collapse: collapse; width: 100%; margin: 16px 0 28px; font-size: 14px; table-layout: fixed; }
+  th, td { border: 1px solid #E2E8F0; padding: 12px 14px; text-align: left; vertical-align: top; word-break: keep-all; }
+  th { background: #F1F5F9; font-weight: 700; color: #1E293B; }
+  tr:nth-child(even) td { background: #FAFBFC; }
+
+  .col-day { width: 8%; text-align: center; font-weight: 700; }
+
+  .old { color: #DC2626; text-decoration: line-through; }
+  .new { color: #059669; font-weight: 700; }
+  .highlight { background: #FEF08A; padding: 2px 6px; border-radius: 3px; }
+
+  .item-box { background: #FAFBFC; border: 1px solid #E2E8F0; border-radius: 8px; padding: 18px 22px; margin: 16px 0; }
+  .item-box .row { margin: 6px 0; display: grid; grid-template-columns: 90px 1fr; gap: 12px; align-items: start; }
+  .item-box .label { font-weight: 700; color: #2563EB; }
+
+  .conclusion { background: #DCFCE7; border-left: 4px solid #059669; padding: 16px 20px; border-radius: 4px; margin: 30px 0; }
+  code { background: #F1F5F9; padding: 2px 6px; border-radius: 3px; font-size: 13px; }
+
+  .total td { background: #DBEAFE !important; font-weight: 700; }
+  .num { text-align: right; font-variant-numeric: tabular-nums; }
+</style>
+</head>
+<body>
+
+<h1>청킹 책 본문 ↔ DB 자료 대조 보고서</h1>
+
+<div class="meta">
+  <strong>작성일</strong>: 2026-05-20<br>
+  <strong>대조 대상 A (DB 자료)</strong>: <code>청킹잉글리시Basic - DB대표문장,청킹.csv</code><br>
+  <strong>대조 대상 B (라이브 본문)</strong>: <a href="https://minjunbyeon-netizen.github.io/chunking-book-lite/book-lite.html">https://minjunbyeon-netizen.github.io/chunking-book-lite/book-lite.html</a><br>
+  <strong>비교 범위</strong>: 250 Day × 24 카드 = 6,000 카드 (대표문장 750 + 활용 청크 5,250)
+</div>
+
+<div class="summary">
+  CSV(DB 자료) 와 라이브 책 본문 텍스트를 전수 대조한 결과, <strong>225 / 250 Day (90%)</strong>가 완전히 일치하였으며, 25 Day 에서 총 38건의 차이가 확인되었습니다. 모든 차이는 사유별로 분류 가능하며, 대부분이 이전 보고서(2026-05-19)에서 이미 정정 사유로 보고된 항목과 일치합니다.
+</div>
+
+<h2>1. 대조 결과 개요</h2>
+<table>
+  <colgroup>
+    <col style="width:45%">
+    <col style="width:12%">
+    <col style="width:43%">
+  </colgroup>
+  <thead>
+    <tr>
+      <th>분류</th>
+      <th class="num">건수</th>
+      <th>처리 방향</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td>CSV 의 영문 철자 오기 — HTML 정정본</td><td class="num">9</td><td>HTML 유지 (정정 적용 완료)</td></tr>
+    <tr><td>CSV 의 한국어 맞춤법 오류 — HTML 정정본</td><td class="num">3</td><td>HTML 유지 (정정 적용 완료)</td></tr>
+    <tr><td>영문 표기 변형 (하이픈·단수/복수·관사)</td><td class="num">10</td><td>검토 요청 — 의도 확인 필요</td></tr>
+    <tr><td>한국어 표현 차이 (의미 동일·표현 다름)</td><td class="num">7</td><td>검토 요청 — 의도 확인 필요</td></tr>
+    <tr><td>대표문장 자체 교체</td><td class="num">5</td><td>검토 요청 — 의도 확인 필요</td></tr>
+    <tr><td>HTML 측 오류 의심</td><td class="num">2</td><td>HTML 정정 검토</td></tr>
+    <tr><td>한쪽에만 존재하는 청크</td><td class="num">2</td><td>검토 요청 — 의도 확인 필요</td></tr>
+    <tr class="total"><td>합계</td><td class="num">38</td><td></td></tr>
+  </tbody>
+</table>
+
+<h2>2. CSV 의 영문 철자 오기 (HTML 정정본 유지 권장)</h2>
+
+<div class="item-box">
+  <div class="row"><span class="label">상황</span><span>CSV 자료에서 영문 철자 오기가 9건 확인되었습니다. 본문 HTML 에는 이미 표준 표기로 정정되어 반영되어 있습니다.</span></div>
+  <div class="row"><span class="label">처리</span><span>HTML 본문은 현재 상태(정정본) 유지를 권장하며, 차후 CSV 자료 재발행 시 동일한 정정 적용을 요청드립니다.</span></div>
+</div>
+
+<table>
+  <colgroup>
+    <col style="width:8%">
+    <col style="width:30%">
+    <col style="width:22%">
+    <col style="width:40%">
+  </colgroup>
+  <thead><tr><th class="col-day">Day</th><th>CSV (오기)</th><th>HTML (정정)</th><th>사유</th></tr></thead>
+  <tbody>
+    <tr><td class="col-day">16</td><td><span class="old">I have a <span class="highlight">shanpoo</span></span></td><td class="new">I have a shampoo</td><td>'shampoo' 철자 오기.</td></tr>
+    <tr><td class="col-day">26</td><td><span class="old">look at the <span class="highlight">carmera</span></span></td><td class="new">look at the camera</td><td>'camera' 철자 오기.</td></tr>
+    <tr><td class="col-day">100</td><td><span class="old">I <span class="highlight">preapre</span> the food</span></td><td class="new">I prepare the food</td><td>'prepare' 철자 오기.</td></tr>
+    <tr><td class="col-day">103</td><td><span class="old">I <span class="highlight">cove</span> the dance</span></td><td class="new">I cover the dance</td><td>'cover' 철자 오기.</td></tr>
+    <tr><td class="col-day">202</td><td><span class="old">see the <span class="highlight">rabbilt</span></span></td><td class="new">see the rabbit</td><td>'rabbit' 철자 오기.</td></tr>
+    <tr><td class="col-day">202</td><td><span class="old">I am <span class="highlight">fanastic</span></span></td><td class="new">I am fantastic</td><td>'fantastic' 철자 오기.</td></tr>
+    <tr><td class="col-day">202</td><td><span class="old">be <span class="highlight">wonerful</span></span></td><td class="new">be wonderful</td><td>'wonderful' 철자 오기.</td></tr>
+    <tr><td class="col-day">204</td><td><span class="old">forget about the <span class="highlight">misssion</span></span></td><td class="new">forget about the mission</td><td>'mission' 철자 오기 (s 3개).</td></tr>
+    <tr><td class="col-day">223</td><td><span class="old">I <span class="highlight">experince</span> the culture</span></td><td class="new">I experience the culture</td><td>'experience' 철자 오기.</td></tr>
+  </tbody>
+</table>
+
+<h2>3. CSV 의 한국어 맞춤법 오류 (HTML 정정본 유지 권장)</h2>
+
+<div class="item-box">
+  <div class="row"><span class="label">상황</span><span>CSV 자료에서 한국어 표준 맞춤법 오류가 3건 확인되었습니다. 본문 HTML 에는 이미 표준 표기로 정정되어 있습니다.</span></div>
+  <div class="row"><span class="label">처리</span><span>HTML 본문은 현재 상태 유지를 권장하며, CSV 자료의 정정도 함께 요청드립니다.</span></div>
+</div>
+
+<table>
+  <colgroup>
+    <col style="width:8%">
+    <col style="width:32%">
+    <col style="width:22%">
+    <col style="width:38%">
+  </colgroup>
+  <thead><tr><th class="col-day">Day</th><th>CSV (오기)</th><th>HTML (정정)</th><th>사유</th></tr></thead>
+  <tbody>
+    <tr><td class="col-day">1</td><td><span class="old">바꾸다 <span class="highlight">날자</span>를</span></td><td class="new">바꾸다 날짜를</td><td>표준 한국어 표기는 '날짜'입니다.</td></tr>
+    <tr><td class="col-day">178</td><td><span class="old">쓰다 <span class="highlight">날자</span>를</span></td><td class="new">쓰다 날짜를</td><td>표준 한국어 표기는 '날짜'입니다.</td></tr>
+    <tr><td class="col-day">194</td><td><span class="old">표현하다 <span class="highlight">바램</span>을</span></td><td class="new">표현하다 바람을</td><td>'소망'의 의미에 해당하는 표준 표기는 '바람'입니다.</td></tr>
+  </tbody>
+</table>
+
+<h2>4. 영문 표기 변형 (검토 요청 사항)</h2>
+
+<div class="item-box">
+  <div class="row"><span class="label">상황</span><span>CSV 와 HTML 의 영문 표기가 하이픈 유무, 단수/복수, 관사 보강 등에서 차이가 있습니다.</span></div>
+  <div class="row"><span class="label">요청</span><span>어느 쪽 표기를 정본으로 채택할지 회신 부탁드립니다. 미회신 시 현재 HTML 표기를 유지합니다.</span></div>
+</div>
+
+<h3>4-1. 하이픈 표기 (Day 14, 4건)</h3>
+<table>
+  <colgroup>
+    <col style="width:8%">
+    <col style="width:30%">
+    <col style="width:22%">
+    <col style="width:40%">
+  </colgroup>
+  <thead><tr><th class="col-day">Day</th><th>CSV</th><th>HTML</th><th>참고</th></tr></thead>
+  <tbody>
+    <tr><td class="col-day">14</td><td>do pull-ups</td><td>do pullups</td><td rowspan="4">표준 영어 사전(Cambridge·Merriam-Webster)은 하이픈 표기를 채택. HTML 은 무하이픈 표기로 통일되어 있습니다.</td></tr>
+    <tr><td class="col-day">14</td><td>do push-ups</td><td>do pushups</td></tr>
+    <tr><td class="col-day">14</td><td>do sit-ups</td><td>do situps</td></tr>
+    <tr><td class="col-day">14</td><td>do warm-up</td><td>do warmup</td></tr>
+  </tbody>
+</table>
+
+<h3>4-2. 단수 / 복수 (4건)</h3>
+<table>
+  <colgroup>
+    <col style="width:8%">
+    <col style="width:30%">
+    <col style="width:22%">
+    <col style="width:40%">
+  </colgroup>
+  <thead><tr><th class="col-day">Day</th><th>CSV</th><th>HTML</th><th>참고</th></tr></thead>
+  <tbody>
+    <tr><td class="col-day">51</td><td>더하다 점수<strong>를</strong></td><td>더하다 점수<strong>들을</strong></td><td>대응 영문 'add the points' 의 복수형을 한국어에 명시할지 여부.</td></tr>
+    <tr><td class="col-day">104</td><td>match the word<strong>s</strong></td><td>match the word</td><td>'단어를 맞추다' 의 단·복수 선택.</td></tr>
+    <tr><td class="col-day">154</td><td>express the feeling<strong>s</strong></td><td>express the feeling</td><td>'감정을 표현하다' 의 단·복수 선택.</td></tr>
+    <tr><td class="col-day">144</td><td>buy drink<strong>s</strong>, buy fruit<strong>s</strong></td><td>buy <strong>a</strong> drink, buy fruit</td><td>가산명사 관사 보강 + 'fruit' 의 불가산 표기.</td></tr>
+  </tbody>
+</table>
+
+<h3>4-3. 한쪽에만 존재하는 영문 청크 (2건)</h3>
+<table>
+  <colgroup>
+    <col style="width:8%">
+    <col style="width:40%">
+    <col style="width:52%">
+  </colgroup>
+  <thead><tr><th class="col-day">Day</th><th>표기 차이</th><th>참고</th></tr></thead>
+  <tbody>
+    <tr><td class="col-day">154</td><td>CSV: <code>표현하다 느낌을</code> 단독 보유<br>HTML: 해당 청크 미수록</td><td>'feeling' 의 표기를 '느낌'/'감정' 중 어느 쪽으로 통일할지 검토 필요.</td></tr>
+    <tr><td class="col-day">182</td><td>CSV: <code>enter the password / 입력하다 비밀번호를</code> 단독 보유<br>HTML: 해당 청크 미수록</td><td>HTML 청크 슬롯 한계로 미수록되었을 가능성이 있어 추가 수록 여부 검토 필요.</td></tr>
+  </tbody>
+</table>
+
+<h2>5. 한국어 표현 차이 (검토 요청 사항)</h2>
+
+<div class="item-box">
+  <div class="row"><span class="label">상황</span><span>의미는 유사하나 표현이 다른 한국어 청크가 7건 확인되었습니다.</span></div>
+  <div class="row"><span class="label">요청</span><span>어느 쪽 표현을 정본으로 채택할지 회신 부탁드립니다.</span></div>
+</div>
+
+<table>
+  <colgroup>
+    <col style="width:8%">
+    <col style="width:28%">
+    <col style="width:22%">
+    <col style="width:42%">
+  </colgroup>
+  <thead><tr><th class="col-day">Day</th><th>CSV</th><th>HTML</th><th>참고</th></tr></thead>
+  <tbody>
+    <tr><td class="col-day">62</td><td>한숨쉬다 <strong>안도의</strong></td><td>한숨쉬다</td><td>'sigh of relief' 의 '안도의' 수식어 표기 여부.</td></tr>
+    <tr><td class="col-day">67</td><td>만나다 <strong>단체</strong>를</td><td>만나다 <strong>유닛</strong>을</td><td>'unit' 의 한국어 표기 선택.</td></tr>
+    <tr><td class="col-day">71</td><td>사과하다 문제<strong>를</strong></td><td>사과하다 문제<strong>에 대해</strong></td><td>'apologize for the problem' 의 조사 선택 ('에 대해' 가 일반 표현).</td></tr>
+    <tr><td class="col-day">79</td><td><strong>맡다</strong> 역할을</td><td><strong>하다</strong> 역할을</td><td>'play a role' 의 한국어 동사 선택.</td></tr>
+    <tr><td class="col-day">202</td><td>이다 <strong>경이로운</strong></td><td>이다 <strong>멋진</strong></td><td>'wonderful' 의 한국어 형용사 선택.</td></tr>
+    <tr><td class="col-day">204</td><td>잊다 <strong>미션</strong>에 대해</td><td>잊다 <strong>임무</strong>에 대해</td><td>'mission' 의 한국어 표기 선택 (외래어 vs 한자어).</td></tr>
+    <tr><td class="col-day">250</td><td>되다 <strong>실패하는</strong></td><td>되다 <strong>평평한</strong></td><td>'fall flat' 의 직역 ('평평한') / 의역 ('실패하는') 선택.</td></tr>
+  </tbody>
+</table>
+
+<h2>6. 대표문장 자체 교체 (검토 요청 사항)</h2>
+
+<div class="item-box">
+  <div class="row"><span class="label">상황</span><span>대표문장 자체가 다른 사례가 5건 확인되었습니다. 단순 표기 차이가 아닌 문장의 교체이므로 의도 확인이 필요합니다.</span></div>
+</div>
+
+<table>
+  <colgroup>
+    <col style="width:8%">
+    <col style="width:38%">
+    <col style="width:34%">
+    <col style="width:20%">
+  </colgroup>
+  <thead><tr><th class="col-day">Day</th><th>CSV</th><th>HTML</th><th>참고</th></tr></thead>
+  <tbody>
+    <tr><td class="col-day">13</td><td>I say "<strong>Good morning.</strong>"<br>(인용부호 포함)</td><td>I say Good morning</td><td>인용부호 정리 (시각 일관성).</td></tr>
+    <tr><td class="col-day">24</td><td>I pack <strong>my</strong> bag<br>(나는 짐을 싸다 나의 <strong>가방에</strong>)</td><td>I pack <strong>the</strong> bag<br>(나는 짐을 싸다 <strong>가방을</strong>)</td><td>소유격 → 정관사, 조사 '에' → '을'.</td></tr>
+    <tr><td class="col-day">71</td><td>I say "Sorry"<br>(인용부호 포함, 별도 표시 없음)</td><td>I say "Sorry"</td><td>인용부호 통일 (직전 보고서에 자체 작성 한국어로 기재됨).</td></tr>
+    <tr><td class="col-day">103</td><td>I cove the dance<br>(나는 (다른 사람의 것) 덮다 춤을)</td><td>I cover the dance<br>(나는 따라하다 춤을)</td><td>철자 정정 + 'cover (a song)' 의 한국어 의역.</td></tr>
+    <tr><td class="col-day">250</td><td>I sleep <strong>soundly</strong><br>(나는 잠자다 <strong>곤히</strong>)</td><td>I sleep <strong>on my side</strong><br>(나는 잠자다 <strong>옆으로</strong>)</td><td>대표문장 자체가 다름. 의도 확인 필요.</td></tr>
+  </tbody>
+</table>
+
+<h2>7. HTML 측 오류 의심 (정정 검토)</h2>
+
+<div class="item-box">
+  <div class="row"><span class="label">상황</span><span>CSV 와 비교 결과, HTML 측이 오기로 보이는 사례가 2건 확인되었습니다.</span></div>
+  <div class="row"><span class="label">요청</span><span>HTML 본문 정정 여부 회신 부탁드립니다.</span></div>
+</div>
+
+<table>
+  <colgroup>
+    <col style="width:8%">
+    <col style="width:28%">
+    <col style="width:22%">
+    <col style="width:42%">
+  </colgroup>
+  <thead><tr><th class="col-day">Day</th><th>CSV</th><th>HTML</th><th>참고</th></tr></thead>
+  <tbody>
+    <tr><td class="col-day">208</td><td><strong>stand</strong> in the middle<br>(<strong>서다</strong> 중간에)</td><td><span class="old"><strong>sit</strong> in the middle<br>(<strong>앉다</strong> 중간에)</span></td><td>동사 자체가 다름. CSV 기준 'stand' 가 정본인 경우 HTML 정정 필요.</td></tr>
+    <tr><td class="col-day">245</td><td>가볍게 두드리다 <strong>발</strong>을<br>(tap the foot)</td><td><span class="old">가볍게 두드리다 <strong>벌</strong>을</span></td><td>'foot' = '발' 표기. HTML 의 '벌' 은 오타로 추정.</td></tr>
+  </tbody>
+</table>
+
+<h2>8. 최종 통계</h2>
+<table>
+  <colgroup>
+    <col style="width:55%">
+    <col style="width:45%">
+  </colgroup>
+  <thead><tr><th>점검 항목</th><th>결과</th></tr></thead>
+  <tbody>
+    <tr><td>대조 Day 수</td><td class="new">250 / 250</td></tr>
+    <tr><td>대조 카드 수</td><td class="new">6,000 / 6,000</td></tr>
+    <tr><td>완전 일치 Day</td><td class="new">225 / 250 (90.0%)</td></tr>
+    <tr><td>차이 발견 Day</td><td>25 / 250 (10.0%)</td></tr>
+    <tr><td>전체 차이 건수</td><td>38건</td></tr>
+    <tr><td>&nbsp;&nbsp;└ HTML 정정 유지 권장 (CSV 측 오타)</td><td class="new">12건</td></tr>
+    <tr><td>&nbsp;&nbsp;└ 검토 요청 (표현 차이)</td><td>24건</td></tr>
+    <tr><td>&nbsp;&nbsp;└ HTML 정정 검토 (HTML 측 의심)</td><td>2건</td></tr>
+  </tbody>
+</table>
+
+<div class="conclusion">
+  본 대조 결과, CSV(DB 자료) 와 라이브 책 본문은 <strong>90% 완전 일치</strong>합니다. 차이가 확인된 38건 중 <strong>12건은 CSV 측 오타로 HTML 정정본 유지가 권장</strong>되며, <strong>2건은 HTML 측 오류 의심으로 정정 검토</strong>가 필요합니다. 나머지 24건은 표현 선택의 문제로 정본 채택 회신 시 일괄 반영 가능합니다.<br><br>
+  <strong>라이브 자료</strong>: <a href="https://minjunbyeon-netizen.github.io/chunking-book-lite/book-lite.html">https://minjunbyeon-netizen.github.io/chunking-book-lite/book-lite.html</a><br><br>
+  본 보고서의 4·5·6·7항에 대한 회신 부탁드립니다.
+</div>
+
+</body>
+</html>
