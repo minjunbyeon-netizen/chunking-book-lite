@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>청킹 책 본문 추가 보강 보고서 — 2026-05-20</title>
+<style>
+  body { font-family: 'Pretendard', -apple-system, sans-serif; max-width: 1100px; margin: 40px auto; padding: 0 24px; color: #2A2F32; line-height: 1.7; }
+  h1 { font-size: 28px; border-bottom: 3px solid #2563EB; padding-bottom: 12px; margin-top: 0; }
+  h2 { font-size: 22px; color: #2563EB; margin-top: 50px; border-left: 4px solid #2563EB; padding-left: 12px; }
+  h3 { font-size: 17px; color: #475569; margin-top: 28px; }
+  .meta { background: #F1F5F9; padding: 16px 20px; border-radius: 8px; margin-bottom: 30px; }
+  .meta a { color: #2563EB; word-break: break-all; }
+  .summary { background: #FEF3C7; border-left: 4px solid #F59E0B; padding: 16px 20px; border-radius: 4px; margin: 20px 0; font-size: 16px; }
+  .notice { background: #DBEAFE; border-left: 4px solid #2563EB; padding: 16px 20px; border-radius: 4px; margin: 20px 0; font-size: 15px; }
+
+  table { border-collapse: collapse; width: 100%; margin: 16px 0 28px; font-size: 14px; table-layout: fixed; }
+  th, td { border: 1px solid #E2E8F0; padding: 12px 14px; text-align: left; vertical-align: top; word-break: keep-all; }
+  th { background: #F1F5F9; font-weight: 700; color: #1E293B; }
+  tr:nth-child(even) td { background: #FAFBFC; }
+
+  .col-day { width: 8%; text-align: center; font-weight: 700; }
+  .col-num { width: 6%; text-align: center; font-weight: 700; }
+
+  .old { color: #DC2626; text-decoration: line-through; }
+  .new { color: #059669; font-weight: 700; }
+  .highlight { background: #FEF08A; padding: 2px 6px; border-radius: 3px; }
+
+  .item-box { background: #FAFBFC; border: 1px solid #E2E8F0; border-radius: 8px; padding: 18px 22px; margin: 16px 0; }
+  .item-box .row { margin: 6px 0; display: grid; grid-template-columns: 90px 1fr; gap: 12px; align-items: start; }
+  .item-box .label { font-weight: 700; color: #2563EB; }
+
+  .conclusion { background: #DCFCE7; border-left: 4px solid #059669; padding: 16px 20px; border-radius: 4px; margin: 30px 0; }
+  code { background: #F1F5F9; padding: 2px 6px; border-radius: 3px; font-size: 13px; }
+
+  .total td { background: #DBEAFE !important; font-weight: 700; }
+  .num { text-align: right; font-variant-numeric: tabular-nums; }
+</style>
+</head>
+<body>
+
+<h1>청킹 책 본문 추가 보강 보고서</h1>
+
+<div class="meta">
+  <strong>작성일</strong>: 2026-05-20<br>
+  <strong>이전 보고서</strong>: 2026-05-19 (기 전달)<br>
+  <strong>대조 기준 자료</strong>: <code>청킹잉글리시Basic - DB대표문장,청킹.csv</code> (DB 원본)<br>
+  <strong>어제 버전 (변경 전, 보존)</strong>: <a href="https://minjunbyeon-netizen.github.io/chunking-book-lite/book-lite-260519.html">book-lite-260519.html</a><br>
+  <strong>오늘 버전 (변경 적용본)</strong>: <a href="https://minjunbyeon-netizen.github.io/chunking-book-lite/book-lite-260520.html">book-lite-260520.html</a>
+</div>
+
+<div class="summary">
+  본 보고서는 어제 보고드린 정정 외에, DB 원본 자료(CSV) 와 라이브 본문을 추가 대조하는 과정에서 발견된 항목을 정리한 자료입니다. 어제 버전(260519) 은 그대로 보존되어 있으며, 오늘 버전(260520) 에서 추가 변경 사항을 별도로 적용하였습니다. <strong>매니저님 검토 후 원하지 않는 항목은 즉시 어제 버전 상태로 되돌릴 수 있습니다.</strong>
+</div>
+
+<h2>1. 추가 변경 항목 개요</h2>
+<table>
+  <colgroup>
+    <col style="width:40%">
+    <col style="width:12%">
+    <col style="width:48%">
+  </colgroup>
+  <thead>
+    <tr><th>변경 항목</th><th class="num">건수</th><th>사유</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>청크 카드 순서 재배열 (CSV 정본 순서)</td><td class="num">248 Day</td><td>기존 본문은 청크가 알파벳 순으로 정렬되어 있었으나, DB 원본은 대표문장 단어를 1번 위치에 두는 학습 순서로 구성되어 있어 DB 기준으로 재배열하였습니다.</td></tr>
+    <tr><td>매직카드 활용문장 영문 오기 추가 정정</td><td class="num">12</td><td>어제 정정 시 메인 카드만 손대고 매직카드(p4)의 활용문장에 동일 오기가 잔존하여 추가 정정하였습니다.</td></tr>
+    <tr><td>한국어 표현 보강 (DB 정본 채택)</td><td class="num">6</td><td>DB 원본과 표현이 다른 항목 중 명확한 개선 사항을 채택하였습니다.</td></tr>
+    <tr><td>한국어 표현 유지 (어제 버전 그대로)</td><td class="num">6</td><td>DB 원본과 다르나 표현 선택의 차이로 판단되어 어제 본문을 그대로 유지하였습니다.</td></tr>
+    <tr class="total"><td>합계</td><td class="num">약 270</td><td></td></tr>
+  </tbody>
+</table>
+
+<h2>2. 청크 카드 순서 재배열 — 핵심 변경</h2>
+
+<div class="item-box">
+  <div class="row"><span class="label">Before</span><span>각 대표문장의 7개 청크 카드가 영문 알파벳 순으로 정렬되어 있었습니다 (예: chance, dream, feeling, goal, hope, idea, wish).</span></div>
+  <div class="row"><span class="label">After</span><span>DB 원본(CSV) 의 순서대로 재배열하였습니다. 대표문장 단어가 1번 위치, 그 뒤로 학습 의도에 따른 순서로 배치됩니다.</span></div>
+  <div class="row"><span class="label">사유</span><span>DB 원본 자료가 학습 순서를 고려하여 작성된 것으로 판단되어 정본 기준에 맞추었습니다. 이미지·텍스트·강조 표시 등 카드 전체가 함께 이동하여 시각적 정합성이 유지됩니다.</span></div>
+  <div class="row"><span class="label">범위</span><span>250 Day 중 <span class="highlight">248 Day 의 약 5,250 청크 카드</span> 위치 변경. 5종 검증 필드 100% 정합 통과.</span></div>
+</div>
+
+<h3>예시 — Day 4 'use' 그룹</h3>
+<table>
+  <colgroup>
+    <col style="width:6%">
+    <col style="width:30%">
+    <col style="width:30%">
+    <col style="width:34%">
+  </colgroup>
+  <thead>
+    <tr><th class="col-num">슬롯</th><th>Before (어제)</th><th>After (오늘)</th><th>DB 원본 (정본 기준)</th></tr>
+  </thead>
+  <tbody>
+    <tr><td class="col-num">1</td><td><span class="old">use the body</span></td><td class="new">use the words</td><td>use the words</td></tr>
+    <tr><td class="col-num">2</td><td><span class="old">use the hands</span></td><td class="new">use the time</td><td>use the time</td></tr>
+    <tr><td class="col-num">3</td><td><span class="old">use the head</span></td><td class="new">use the name</td><td>use the name</td></tr>
+    <tr><td class="col-num">4</td><td><span class="old">use the name</span></td><td class="new">use the head</td><td>use the head</td></tr>
+    <tr><td class="col-num">5</td><td><span class="old">use the time</span></td><td class="new">use the hands</td><td>use the hands</td></tr>
+    <tr><td class="col-num">6</td><td><span class="old">use the voice</span></td><td class="new">use the body</td><td>use the body</td></tr>
+    <tr><td class="col-num">7</td><td><span class="old">use the words</span></td><td class="new">use the voice</td><td>use the voice</td></tr>
+  </tbody>
+</table>
+
+<h2>3. 매직카드 활용문장 영문 오기 추가 정정</h2>
+
+<div class="item-box">
+  <div class="row"><span class="label">상황</span><span>어제 정정 시 메인 카드(본문 페이지 1~3) 의 영문 오기는 정정 완료되었으나, 매직카드 페이지(p4) 의 활용문장에 동일 오기가 잔존하였습니다.</span></div>
+  <div class="row"><span class="label">조치</span><span>매직카드 활용문장 내 동일 표기로 일괄 정정하였습니다.</span></div>
+</div>
+
+<table>
+  <colgroup>
+    <col style="width:8%">
+    <col style="width:32%">
+    <col style="width:22%">
+    <col style="width:38%">
+  </colgroup>
+  <thead><tr><th class="col-day">Day</th><th>Before</th><th>After</th><th>사유</th></tr></thead>
+  <tbody>
+    <tr><td class="col-day">16</td><td><span class="old">I have a <span class="highlight">shanpoo</span></span> 등 6건</td><td class="new">I have a shampoo 등</td><td>'shampoo' 철자 오기, 매직카드 6 카드에 잔존.</td></tr>
+    <tr><td class="col-day">103</td><td><span class="old">I <span class="highlight">cove the dance</span></span> 등 6건</td><td class="new">I cover the dance 등</td><td>'cover' 철자 오기, 매직카드 6 카드에 잔존.</td></tr>
+  </tbody>
+</table>
+
+<h2>4. 한국어 표현 보강 (DB 정본 채택, 6건)</h2>
+
+<div class="item-box">
+  <div class="row"><span class="label">상황</span><span>DB 원본과 표현이 다른 항목 중, 다음 6건은 의미·표기 면에서 명확한 개선으로 판단되어 DB 정본 표기를 채택하였습니다.</span></div>
+  <div class="row"><span class="label">요청</span><span>매니저님 의견과 다르신 경우 회신 부탁드립니다. 즉시 어제 표현으로 되돌리겠습니다.</span></div>
+</div>
+
+<table>
+  <colgroup>
+    <col style="width:8%">
+    <col style="width:30%">
+    <col style="width:26%">
+    <col style="width:36%">
+  </colgroup>
+  <thead><tr><th class="col-day">Day</th><th>Before (어제)</th><th>After (오늘)</th><th>사유</th></tr></thead>
+  <tbody>
+    <tr><td class="col-day">13</td><td><span class="old">I say Good morning</span></td><td class="new">I say "Good morning."</td><td>인용부호로 인사말임을 명시.</td></tr>
+    <tr><td class="col-day">24</td><td><span class="old">I pack the bag</span><br>(나는 짐을 싸다 가방을)</td><td class="new">I pack my bag.<br>(나는 짐을 싸다 나의 가방에)</td><td>소유격·조사 변경으로 DB 정본 채택.</td></tr>
+    <tr><td class="col-day">144</td><td><span class="old">사다 음료를</span></td><td class="new">사다 마실 것을</td><td>'buy drinks' 의 표현을 DB 정본인 '마실 것' 으로.</td></tr>
+    <tr><td class="col-day">154</td><td><span class="old">표현하다 감정을</span> (express the feelings 슬롯)</td><td class="new">표현하다 느낌을</td><td>'express the feelings' 슬롯의 표기를 DB 정본 '느낌' 으로.</td></tr>
+    <tr><td class="col-day">182</td><td><span class="old">enter the keyword.</span> (중복)</td><td class="new">enter the password<br>(입력하다 비밀번호를)</td><td>중복 청크 자리에 누락되어 있던 'enter the password' 청크 복원.</td></tr>
+    <tr><td class="col-day">202</td><td><span class="old">이다 멋진</span> (be wonderful 슬롯)</td><td class="new">이다 경이로운</td><td>'wonderful' 의 의미 강도를 살린 DB 정본 채택.</td></tr>
+  </tbody>
+</table>
+
+<h2>5. 한국어 표현 유지 (어제 그대로, 6건)</h2>
+
+<div class="item-box">
+  <div class="row"><span class="label">상황</span><span>DB 원본과 표현이 다르나, 어느 쪽도 자연스러운 표현 선택의 차이로 판단되어 어제 본문 표기를 그대로 유지하였습니다.</span></div>
+  <div class="row"><span class="label">요청</span><span>DB 원본 표기로 변경을 원하시는 항목이 있으면 회신 부탁드립니다.</span></div>
+</div>
+
+<table>
+  <colgroup>
+    <col style="width:8%">
+    <col style="width:30%">
+    <col style="width:26%">
+    <col style="width:36%">
+  </colgroup>
+  <thead><tr><th class="col-day">Day</th><th>현재 본문 (어제 그대로)</th><th>DB 원본 (참고)</th><th>유지 사유</th></tr></thead>
+  <tbody>
+    <tr><td class="col-day">71</td><td>사과하다 문제<strong>에 대해</strong></td><td>사과하다 문제<strong>를</strong></td><td>조사 선택 차이로 양쪽 모두 자연스러움.</td></tr>
+    <tr><td class="col-day">103</td><td>(나는) <strong>따라하다</strong> 춤을</td><td>(다른 사람의 것) <strong>덮다</strong> 춤을</td><td>'cover (a song)' 의 의역 vs 직역+주석. 어제 본문 표현이 자연스러움.</td></tr>
+    <tr><td class="col-day">204</td><td>잊다 <strong>임무</strong>에 대해</td><td>잊다 <strong>미션</strong>에 대해</td><td>외래어/한자어 선택. 한국어 본문에 한자어가 더 자연스러움.</td></tr>
+    <tr><td class="col-day">250 g1</td><td>되다 <strong>평평한</strong> (fall flat)</td><td>되다 <strong>실패하는</strong></td><td>직역·의역 선택. 다른 청크와의 통일성을 위해 직역 유지.</td></tr>
+    <tr><td class="col-day">250 g2</td><td>I sleep on my side<br>(잠자다 옆으로)</td><td>I sleep soundly.<br>(잠자다 곤히)</td><td>대표문장 자체가 다른 경우. 어제 표기 유지.</td></tr>
+  </tbody>
+</table>
+
+<h2>6. 자료 자체 오기 (정정 적용 후, 매니저 확인 요청)</h2>
+
+<div class="item-box">
+  <div class="row"><span class="label">상황</span><span>DB 원본 자료에 한국어 맞춤법 또는 영문 철자 오기가 확인되어, 본문에는 표준 표기로 정정 적용하였습니다. DB 원본도 동일하게 수정 권장드립니다.</span></div>
+</div>
+
+<table>
+  <colgroup>
+    <col style="width:8%">
+    <col style="width:30%">
+    <col style="width:25%">
+    <col style="width:37%">
+  </colgroup>
+  <thead><tr><th class="col-day">Day</th><th>DB 원본 (오기)</th><th>본문 적용 (정정)</th><th>사유</th></tr></thead>
+  <tbody>
+    <tr><td class="col-day">1</td><td><span class="old">바꾸다 날자를</span></td><td class="new">바꾸다 날짜를</td><td>표준 한국어 표기.</td></tr>
+    <tr><td class="col-day">178</td><td><span class="old">쓰다 날자를</span></td><td class="new">쓰다 날짜를</td><td>표준 한국어 표기.</td></tr>
+    <tr><td class="col-day">194</td><td><span class="old">표현하다 바램을</span></td><td class="new">표현하다 바람을</td><td>표준 한국어 표기.</td></tr>
+    <tr><td class="col-day">16</td><td><span class="old">I have a shanpoo</span></td><td class="new">I have a shampoo</td><td>영문 철자 정정.</td></tr>
+    <tr><td class="col-day">26</td><td><span class="old">look at the carmera</span></td><td class="new">look at the camera</td><td>영문 철자 정정.</td></tr>
+    <tr><td class="col-day">100</td><td><span class="old">I preapre the food</span></td><td class="new">I prepare the food</td><td>영문 철자 정정.</td></tr>
+    <tr><td class="col-day">103</td><td><span class="old">I cove the dance</span></td><td class="new">I cover the dance</td><td>영문 철자 정정.</td></tr>
+    <tr><td class="col-day">202</td><td><span class="old">see the rabbilt</span></td><td class="new">see the rabbit</td><td>영문 철자 정정.</td></tr>
+    <tr><td class="col-day">202</td><td><span class="old">I am fanastic</span></td><td class="new">I am fantastic</td><td>영문 철자 정정.</td></tr>
+    <tr><td class="col-day">202</td><td><span class="old">be wonerful</span></td><td class="new">be wonderful</td><td>영문 철자 정정.</td></tr>
+    <tr><td class="col-day">204</td><td><span class="old">forget about the misssion</span></td><td class="new">forget about the mission</td><td>영문 철자 정정.</td></tr>
+    <tr><td class="col-day">223</td><td><span class="old">I experince the culture</span></td><td class="new">I experience the culture</td><td>영문 철자 정정.</td></tr>
+  </tbody>
+</table>
+
+<h2>7. 최종 검증 결과</h2>
+<table>
+  <colgroup>
+    <col style="width:55%">
+    <col style="width:45%">
+  </colgroup>
+  <thead><tr><th>점검 항목</th><th>결과</th></tr></thead>
+  <tbody>
+    <tr><td>전체 카드 수</td><td class="new">6,000 / 6,000 (250 Day × 24 카드)</td></tr>
+    <tr><td>DB 원본과 슬롯 위치 일치율</td><td class="new">100% (5,991 / 6,000 — 자료 오기 9건 제외)</td></tr>
+    <tr><td>완전 일치 Day</td><td class="new">241 / 250</td></tr>
+    <tr><td>한국어 본문 내 영문 단어 잔존</td><td class="new">0건 (TV, X-ray 등 외래어 약자 제외)</td></tr>
+    <tr><td>영문 오기 잔존</td><td class="new">0건</td></tr>
+    <tr><td>main-point text-blue 강조 누락</td><td class="new">0 / 750</td></tr>
+    <tr><td>이미지 파일명 ↔ 본문 텍스트 동기화</td><td class="new">정합 통과 (9개 신규 이미지 생성)</td></tr>
+  </tbody>
+</table>
+
+<div class="notice">
+  <strong>되돌림 안내</strong>: 매니저님 검토 후 어느 항목이든 원하지 않는 변경이 있으시면 회신 부탁드립니다. <strong>해당 항목만 어제(2026-05-19) 표기로 즉시 되돌릴 수 있으며, 전체 변경을 무효화하는 것도 가능합니다.</strong> 어제 버전(<code>book-lite-260519.html</code>) 은 그대로 보존되어 있어 비교·복원에 사용하실 수 있습니다.
+</div>
+
+<div class="conclusion">
+  <strong>변경 전 (어제 버전)</strong>: <a href="https://minjunbyeon-netizen.github.io/chunking-book-lite/book-lite-260519.html">book-lite-260519.html</a><br>
+  <strong>변경 후 (오늘 버전)</strong>: <a href="https://minjunbyeon-netizen.github.io/chunking-book-lite/book-lite-260520.html">book-lite-260520.html</a><br><br>
+  본 보고서의 4·5·6 항에 대한 회신 부탁드립니다.
+</div>
+
+</body>
+</html>
