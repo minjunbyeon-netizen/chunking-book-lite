@@ -322,6 +322,32 @@
     </script>
 
 <script>
+/* PDF range filter — ?range=1-50 hides Day sheets outside the range; ?range=51- also hides cover/intro sheets */
+(function () {
+  var range = new URLSearchParams(location.search).get('range');
+  if (!range) return;
+  var parts = range.split('-').map(function (n) { return parseInt(n, 10); });
+  var startDay = parts[0], endDay = parts[1];
+  document.addEventListener('DOMContentLoaded', function () {
+    document.querySelectorAll('.sheet').forEach(function (sheet) {
+      var badge = sheet.querySelector('.day-badge');
+      if (badge) {
+        var m = badge.textContent.match(/Day\s*(\d+)/);
+        if (m) {
+          var d = parseInt(m[1], 10);
+          if (d < startDay || d > endDay) sheet.style.display = 'none';
+        }
+      } else if (startDay > 1) {
+        sheet.style.display = 'none';
+      }
+    });
+    var top = document.querySelector('.top-controls');
+    if (top) top.style.display = 'none';
+  });
+})();
+</script>
+
+<script>
 (function () {
   function markAllEager() {
     document.querySelectorAll('img').forEach(function (img) {
