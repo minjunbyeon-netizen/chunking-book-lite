@@ -1,45 +1,61 @@
-# HANDOFF - 2026-05-26 12:17
+# HANDOFF - 2026-05-26 15:39
 
-> 직전 세션: `book-lite.html` day-badge 3자리 Day 줄바꿈 fix → 라이브 배포 → 매니저 전달용 URL 정리
+> 직전 세션: book-lite.html → Day 1~250 개별 PDF 9폴더 분할 생성 + 검증 + zip 묶음 완성
 
 ## 완료
-- [x] `.header-left { width: 100px → 110px }` (book-lite.html:132) — 컨테이너 +10%
-- [x] `.day-badge { font-size: 1.15rem → 1.035rem }` + `white-space: nowrap` (book-lite.html:134~) — 폰트 -10% + 줄바꿈 차단
-- [x] CSS 룰 한 곳 수정 = 1004 시트 전체 동시 적용 확인 (Day 100·150·200·250 동일하게 fix 됨)
-- [x] commit `aa54bd1` + push → GitHub Pages 자동 배포 → 라이브 HTTP 200 + `width:110px` grep 확인
-- [x] 실수로 떨어진 잡파일 `UsersUSERAppDataLocalTemplive-book-lite.html` (Git Bash 가 Windows 경로 잘못 해석해 생긴 7MB) 제거 — commit `9c12552`
-- [x] `.gitignore` 에 재발 방지 패턴 3종 추가 (`UsersUSER*`, `Users*AppData*`, `*AppDataLocalTemp*`)
-- [x] **톤 격식체 override 메모리 저장** — `memory/tone-formal.md` 신설 + MEMORY.md 인덱스 갱신. 이 프로젝트 한정 "~입니다/~해주세요" 사용
-- [x] 매니저 전달용 최종 URL 안내 완료:
-  - `https://minjunbyeon-netizen.github.io/chunking-book-lite/book-lite.html`
-  - 구간별: `?range=1-50` / `?range=51-100` / ... `?range=201-250` (PDF 와 같은 50 단위)
+- [x] `book-lite.html` 에 `?nocover=1` 파라미터 신설 — 표지·책소개 3장 제외 단일 Day 렌더 지원 (line 326~349)
+- [x] `tools/gen_pdf_by_day.py` 신설 — Day 1~250 슬러그 자동 추출(이미지 경로 grep) + Chrome headless 병렬(4 worker) PDF 생성기
+- [x] `tools/validate_pdfs.py` 신설 — pypdf 로 페이지 수·Day 텍스트 매칭·청크 단어 매칭 4중 검증
+- [x] `pdf-output/by-day/` 9폴더 생성 + 250개 개별 Day PDF 채움 (총 1011.5MB)
+  - 01_Hope-and-Practice (10) / 02_Morning-Routine (19) / 03_School-Life (58) / 04_Exercise-and-Sports (12)
+  - 05_Food-and-Cooking (39) / 06_Daily-Life (56) / 07_Transportation-and-Travel (30) / 08_Health-and-Medicine (10) / 09_Evening-Routine (16)
+- [x] 파일명 규칙 `day{N}_{chunk1-chunk2-chunk3}.pdf` 적용 (사용자 지정 형식)
+- [x] 250개 전수 pypdf 검증 통과 (Passed 250 / Failed 0)
+- [x] Day 14·134·250 playwright 시각 캡처 검증 — 시트 4장 정상 렌더
+- [x] `pdf-output/zip/` 9개 폴더별 zip 압축 (Optimal, 합 834.4MB)
+- [x] `pdf-output/chunking-all-9folders.zip` 마스터 zip (NoCompression, 834.5MB) — 광고주 1회 전송용
+- [x] 이전 HANDOFF.md → `docs/archive/HANDOFF-2026-05-26.md` 이동
 
 ## 진행중
-- (없음 — 매니저 회신 대기)
+- (없음 — 9폴더 PDF/zip 작업 모두 닫힘)
 
-## 대기 (이전 인계장에서 그대로 이월)
-- [ ] **PDF 5분할 재빌드 결정 대기** — 오늘 HTML 만 fix, `pdf-output/chunking-day-*.pdf` 5개는 옛 HTML(Day 102 줄바꿈 잔존) 기준. 사용자 "PDF 는 내가 말하기 전까지 하지마" 명시 → Claude 자가 발의 X
-- [ ] **PDF 사이즈 검토** — 광고주 → 출판사 납품용. 개당 165~170MB, zip 688MB. 사용자 옵션 선택 대기:
-  - 옵션 1 → 원본 그대로 전달
-  - 옵션 2 → ghostscript 압축 (`gswin64c -sDEVICE=pdfwrite -dPDFSETTINGS=/ebook`, 50~80MB 목표)
-  - 옵션 3 → Drive/Notion 링크 그대로
-- [ ] 광고주에게 받아둘 출판사 스펙 5가지 (판형·PDF/X 표준·색공간·bleed·DPI)
-- [ ] Day 4~250 페이지 시각 검수 (이미지·텍스트 짤림 추가 확인) — 오늘은 Day 100~110 day-badge 만 검증
+## 대기 (사용자 선택지)
+- [ ] **ghostscript PDF 압축** — 현재 개별 4MB / 9폴더 합 834MB. `gswin64c -dPDFSETTINGS=/ebook` 로 50~70% 추가 축소 가능 (총 ~300MB 예상). 사용자 명령 시 진입
+- [ ] **광고주/매니저 전달** — Google Drive·WeTransfer·카카오톡 PC 중 선택 (이메일 첨부 불가, 25MB 초과)
+- [ ] **기존 5분할 PDF (`pdf-output/chunking-day-*.pdf`) 재빌드 여부** — HTML 에 `?nocover=1` 추가됐지만 옛 5분할은 그대로. 사용자 명시 명령 시만 진입 (PDF-HTML 동기 룰 적용)
+- [ ] **이전 세션 이월**: 광고주에게 받아둘 출판사 스펙 5가지 (판형·PDF/X 표준·색공간·bleed·DPI)
 
 ## 결정사항 / 주의
-- **톤 (강제, 이 프로젝트 한정)**: 응답 본문 모두 격식체. 글로벌 친근체 기본값 override. SSOT = `memory/tone-formal.md`
-- **PDF 정책**: 사용자 명시 — Claude 가 먼저 재빌드 발의 X. 사용자 명령 때만 진입
-- **메모리 룰 `pdf-html-sync.md`**: PDF Release = OK URL HTML 라이브와 항상 동일 내용. 현재 HTML/PDF 비동기 상태 → 사용자 명령 떨어지면 즉시 재빌드
-- **PDF 생성 명령** (재현용):
-  ```powershell
-  & 'C:\Program Files\Google\Chrome\Application\chrome.exe' --headless=new --disable-gpu --no-sandbox `
-    --user-data-dir='C:\dev\chrome-pdf-tmp' --virtual-time-budget=60000 `
-    --run-all-compositor-stages-before-draw --no-pdf-header-footer `
-    "--print-to-pdf=<OUT>.pdf" "http://localhost:8765/book-lite.html?range=<START>-<END>"
-  ```
-- **로컬 서버**: python `-m http.server 8765` (백그라운드 ID `bqb487ut4` — 이번 세션). 새 세션 진입 시 다시 띄워야 함
-- **GitHub Pages**: master 브랜치 자동 배포. push 후 1~2분이면 라이브 반영
-- **Git Bash 함정**: `curl -o C:\Users\...` 처럼 Windows 경로 그대로 넘기면 백슬래시 사라져 cwd 에 `CUsersUser...` 잡파일 생성. 임시파일은 `/tmp/...` 또는 `$TEMP` 사용
+- **톤 격식체 유지** — `memory/tone-formal.md` 의 "~입니다/~해주세요" 룰 적용 중
+- **PDF·HTML 동기 룰** — book-lite.html 변경(nocover=1 추가)으로 라이브 URL 와 250개 by-day PDF 가 동기 상태. 이후 HTML 변경 시 by-day PDF 도 재빌드 필요
+- **표지 3장 제외 정책** — `?nocover=1` 로 모든 by-day PDF 가 시트 4장(=청크 페이지 4)만 포함. 표지/책소개 빠짐
+- **슬러그 출처** — `img-lite/final/day{N}/{NN}_{chunk}` 경로 grep 자동 추출, 같은 청크 중복 제거하지 않고 등장 순 그대로 (Day 1: have-change-start)
+- **Chrome headless 함정 2건**
+  - (1) worker_id 를 `idx % 8` 로 할당하면 같은 user-data-dir 두 Chrome 충돌 → `threading.get_ident()` 로 thread-local dir 필수
+  - (2) 8 worker 동시 + 120s timeout 은 부하 과다로 50KB 깨진 PDF 양산. **4 worker + 240s timeout + 200KB 임계 검증** 조합이 안정
+- **검증 4중 체크** — `tools/validate_pdfs.py --full` 로 전수 검증 가능 (페이지 수·Day 번호 일치·청크 단어 일치·파일 크기)
+- **PDF 정책 불변** — 사용자 명시 명령 시만 PDF 작업 진입. Claude 자가 발의 X (이전 HANDOFF 명시 정책 유지)
+- **py 출력 인코딩 함정** — Windows cp949 환경에서 em dash(`—`) 등 비-cp949 글자 print 시 UnicodeEncodeError. `sys.stdout.reconfigure(encoding="utf-8")` + `$env:PYTHONIOENCODING='utf-8'` 필수
+
+## 주요 산출물 경로
+- 개별 PDF: `pdf-output/by-day/{01_Hope-and-Practice ... 09_Evening-Routine}/day{N}_{slug}.pdf` (250개)
+- 폴더별 zip: `pdf-output/zip/{01_Hope-and-Practice ... 09_Evening-Routine}.zip` (9개, 합 834.4MB)
+- 마스터 zip: `pdf-output/chunking-all-9folders.zip` (834.5MB, 9 zip 내장)
+- 생성 스크립트: `tools/gen_pdf_by_day.py`, `tools/validate_pdfs.py`
+- HTML 변경: `book-lite.html` line 326~349 (`?nocover=1` 파라미터 처리)
+
+## 재생성 명령 (필요 시)
+```powershell
+# 로컬 서버 (포트 8765)
+python -m http.server 8765
+
+# 250개 by-day PDF 재생성 (skip-if-exists 내장)
+$env:PYTHONIOENCODING='utf-8'
+python tools\gen_pdf_by_day.py
+
+# 전수 검증
+python tools\validate_pdfs.py --full
+```
 
 ## 다음 세션 권장 첫 프롬프트
 `/resume`
