@@ -13,6 +13,9 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 from collections import defaultdict
 import time
 
+sys.stdout.reconfigure(encoding="utf-8")
+sys.stderr.reconfigure(encoding="utf-8")
+
 ROOT = Path(r"C:\dev\web\chunking")
 HTML = ROOT / "book-lite.html"
 OUT_BASE = ROOT / "pdf-output" / "by-day"
@@ -72,6 +75,8 @@ def gen_one(day: int, slug: str, worker_id: int) -> tuple[int, bool, str]:
     folder = folder_for_day(day)
     out_path = OUT_BASE / folder / f"day{day}_{slug}.pdf"
     out_path.parent.mkdir(parents=True, exist_ok=True)
+    if out_path.exists() and out_path.stat().st_size > 50000:
+        return (day, True, f"skip (exists {out_path.stat().st_size // 1024}KB)")
     user_data = TMP_BASE / f"w{worker_id}"
     user_data.mkdir(parents=True, exist_ok=True)
     url = f"{SERVER}?range={day}-{day}&nocover=1"
@@ -100,8 +105,6 @@ def gen_one(day: int, slug: str, worker_id: int) -> tuple[int, bool, str]:
 
 
 def main():
-    if TMP_BASE.exists():
-        shutil.rmtree(TMP_BASE, ignore_errors=True)
     TMP_BASE.mkdir(parents=True, exist_ok=True)
 
     html_text = HTML.read_text(encoding="utf-8")
@@ -138,12 +141,12 @@ def main():
                     rate = done / elapsed if elapsed > 0 else 0
                     eta = (len(tasks) - done) / rate if rate > 0 else 0
                     print(
-                        f"[{done}/{len(tasks)}] day{day} OK ({msg}) — "
+                        f"[{done}/{len(tasks)}] day{day} OK ({msg}) - "
                         f"{elapsed:.0f}s elapsed, ETA {eta:.0f}s"
                     )
             else:
                 failed.append((day, msg))
-                print(f"[{done}/{len(tasks)}] day{day} FAIL — {msg}")
+                print(f"[{done}/{len(tasks)}] day{day} FAIL - {msg}")
 
     elapsed = time.time() - start
     print(f"\nDone in {elapsed:.0f}s. Success: {len(tasks) - len(failed)}, Failed: {len(failed)}")
