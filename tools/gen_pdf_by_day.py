@@ -11,6 +11,7 @@ import shutil
 from pathlib import Path
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from collections import defaultdict
+import threading
 import time
 
 sys.stdout.reconfigure(encoding="utf-8")
@@ -71,13 +72,14 @@ def slug_for_day(chunks: list[str]) -> str:
     return "-".join(out)
 
 
-def gen_one(day: int, slug: str, worker_id: int) -> tuple[int, bool, str]:
+def gen_one(day: int, slug: str) -> tuple[int, bool, str]:
     folder = folder_for_day(day)
     out_path = OUT_BASE / folder / f"day{day}_{slug}.pdf"
     out_path.parent.mkdir(parents=True, exist_ok=True)
     if out_path.exists() and out_path.stat().st_size > 50000:
         return (day, True, f"skip (exists {out_path.stat().st_size // 1024}KB)")
-    user_data = TMP_BASE / f"w{worker_id}"
+    # Thread-local user-data-dir: stable per worker thread, unique across concurrent threads
+    user_data = TMP_BASE / f"t{threading.get_ident()}"
     user_data.mkdir(parents=True, exist_ok=True)
     url = f"{SERVER}?range={day}-{day}&nocover=1"
     cmd = [
@@ -129,9 +131,8 @@ def main():
 
     with ThreadPoolExecutor(max_workers=WORKERS) as pool:
         futures = {}
-        for idx, (day, slug) in enumerate(tasks):
-            worker_id = idx % WORKERS
-            futures[pool.submit(gen_one, day, slug, worker_id)] = day
+        for day, slug in tasks:
+            futures[pool.submit(gen_one, day, slug)] = day
         for fut in as_completed(futures):
             day, ok, msg = fut.result()
             done += 1
