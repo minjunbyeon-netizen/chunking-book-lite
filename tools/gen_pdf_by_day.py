@@ -23,7 +23,9 @@ OUT_BASE = ROOT / "pdf-output" / "by-day"
 CHROME = r"C:\Program Files\Google\Chrome\Application\chrome.exe"
 SERVER = "http://localhost:8765/book-lite.html"
 TMP_BASE = Path(r"C:\dev\chrome-pdf-tmp-pool")
-WORKERS = 8
+WORKERS = 4
+MIN_PDF_SIZE = 200_000  # bytes; < 200KB = corrupt
+GEN_TIMEOUT = 240  # seconds per Chrome invocation
 
 DAY_TO_FOLDER = [
     (1, 10, "01_Hope-and-Practice"),
@@ -76,7 +78,7 @@ def gen_one(day: int, slug: str) -> tuple[int, bool, str]:
     folder = folder_for_day(day)
     out_path = OUT_BASE / folder / f"day{day}_{slug}.pdf"
     out_path.parent.mkdir(parents=True, exist_ok=True)
-    if out_path.exists() and out_path.stat().st_size > 50000:
+    if out_path.exists() and out_path.stat().st_size > MIN_PDF_SIZE:
         return (day, True, f"skip (exists {out_path.stat().st_size // 1024}KB)")
     # Thread-local user-data-dir: stable per worker thread, unique across concurrent threads
     user_data = TMP_BASE / f"t{threading.get_ident()}"
@@ -95,13 +97,13 @@ def gen_one(day: int, slug: str) -> tuple[int, bool, str]:
     ]
     try:
         result = subprocess.run(
-            cmd, capture_output=True, text=True, timeout=120
+            cmd, capture_output=True, text=True, timeout=GEN_TIMEOUT
         )
-        if out_path.exists() and out_path.stat().st_size > 50000:
+        if out_path.exists() and out_path.stat().st_size > MIN_PDF_SIZE:
             return (day, True, f"{out_path.stat().st_size // 1024}KB")
         return (day, False, f"file missing or too small. stderr: {result.stderr[-200:]}")
     except subprocess.TimeoutExpired:
-        return (day, False, "timeout 120s")
+        return (day, False, f"timeout {GEN_TIMEOUT}s")
     except Exception as e:
         return (day, False, f"exception: {e}")
 
