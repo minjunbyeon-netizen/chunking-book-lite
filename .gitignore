@@ -49,3 +49,8 @@ docs/MAPPING-AUDIT.md
 # Chrome profile
 chrome-profile/
 null
+
+# Git Bash 가 Windows 경로(C:\Users\...) 잘못 해석해서 떨어지는 잡파일
+UsersUSER*
+Users*AppData*
+*AppDataLocalTemp*
