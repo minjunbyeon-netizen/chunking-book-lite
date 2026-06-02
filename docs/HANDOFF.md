@@ -1,60 +1,59 @@
-# HANDOFF - 2026-05-26 15:39
+# HANDOFF - 2026-06-02 23:50
 
-> 직전 세션: book-lite.html → Day 1~250 개별 PDF 9폴더 분할 생성 + 검증 + zip 묶음 완성
+> 직전 세션: book-lite.html 오타 정정 (사용자 지정 4건 → 책 전체 영어 철자 점검까지 확대) + 오늘 고친 Day PDF 재빌드·바탕화면 zip
 
 ## 완료
-- [x] `book-lite.html` 에 `?nocover=1` 파라미터 신설 — 표지·책소개 3장 제외 단일 Day 렌더 지원 (line 326~349)
-- [x] `tools/gen_pdf_by_day.py` 신설 — Day 1~250 슬러그 자동 추출(이미지 경로 grep) + Chrome headless 병렬(4 worker) PDF 생성기
-- [x] `tools/validate_pdfs.py` 신설 — pypdf 로 페이지 수·Day 텍스트 매칭·청크 단어 매칭 4중 검증
-- [x] `pdf-output/by-day/` 9폴더 생성 + 250개 개별 Day PDF 채움 (총 1011.5MB)
-  - 01_Hope-and-Practice (10) / 02_Morning-Routine (19) / 03_School-Life (58) / 04_Exercise-and-Sports (12)
-  - 05_Food-and-Cooking (39) / 06_Daily-Life (56) / 07_Transportation-and-Travel (30) / 08_Health-and-Medicine (10) / 09_Evening-Routine (16)
-- [x] 파일명 규칙 `day{N}_{chunk1-chunk2-chunk3}.pdf` 적용 (사용자 지정 형식)
-- [x] 250개 전수 pypdf 검증 통과 (Passed 250 / Failed 0)
-- [x] Day 14·134·250 playwright 시각 캡처 검증 — 시트 4장 정상 렌더
-- [x] `pdf-output/zip/` 9개 폴더별 zip 압축 (Optimal, 합 834.4MB)
-- [x] `pdf-output/chunking-all-9folders.zip` 마스터 zip (NoCompression, 834.5MB) — 광고주 1회 전송용
-- [x] 이전 HANDOFF.md → `docs/archive/HANDOFF-2026-05-26.md` 이동
+- [x] 사용자 지정 오타 4건 정정 (book-lite.html)
+  - Day 12 `마련하다 자녁을` → `저녁을` (line 4267)
+  - Day 23 `Buttonin up my shirt` → `Buttoning` (line 7902, eng-sentence)
+  - Day 39 `share the inforamtion` → `information` (h3, line 12963)
+  - Day 40 `시작하다 시작을` → `시즌을` (open the season, line 13247)
+- [x] 추가 발견 2건 정정: Day 77 `keep the inforamtion`→`information`, Day 228 `tocuh the button`→`touch`
+- [x] Day 228 잔여 `tocuh` 5건 정정 (cheek/face/hair/shoulder/screen → touch)
+- [x] 오늘 고친 6개 Day(12·23·39·40·77·228) PDF 재생성 + 바탕화면 zip
+  - `tools/gen_pdf_today.py` 신설 — DAYS 리스트만 삭제 후 재생성 + Desktop zip
+  - 산출물: `C:\Users\USER\Desktop\청킹_오타수정_20260602.zip` (6 PDF, 20.7MB)
+  - pypdf 텍스트 추출로 6개 전부 교정 반영·옛 오타 제거 검증 통과
+- [x] **책 전체 영어 철자 전수 점검** (사용자 옵션 1 선택)
+  - `tools/spellcheck_book.py` — pyspellchecker(사전) 기반, h3 + eng-sentence 만 스캔
+  - `tools/fix_spelling.py` — 명백 오타 21종 일괄 정정 (word-boundary regex)
+  - 28군데 정정: telent→talent(7) / believ→believe(2) / achieveing·afffection·cenvention·Christams·cinamon·ckicken·cofffee·feelingss·grabing·hepls·heIps·llullaby·meetting·memu·opportuity·Pouringg·Preapring·schdeule·vacatioon(각 1)
+  - 영향 Day 약 20개: 18·20·37·56·64·67·86·100·105·109·133·135·139·141·142·154·165·183·215·236
+- [x] pyspellchecker 설치 (pip, MIT)
+- [x] 모든 변경 commit + push (origin/master = chunking-book-lite repo, 라이브 URL 반영됨)
 
 ## 진행중
-- (없음 — 9폴더 PDF/zip 작업 모두 닫힘)
+- (없음 — 오타 정정·점검 작업은 모두 닫힘)
 
 ## 대기 (사용자 선택지)
-- [ ] **ghostscript PDF 압축** — 현재 개별 4MB / 9폴더 합 834MB. `gswin64c -dPDFSETTINGS=/ebook` 로 50~70% 추가 축소 가능 (총 ~300MB 예상). 사용자 명령 시 진입
-- [ ] **광고주/매니저 전달** — Google Drive·WeTransfer·카카오톡 PC 중 선택 (이메일 첨부 불가, 25MB 초과)
-- [ ] **기존 5분할 PDF (`pdf-output/chunking-day-*.pdf`) 재빌드 여부** — HTML 에 `?nocover=1` 추가됐지만 옛 5분할은 그대로. 사용자 명시 명령 시만 진입 (PDF-HTML 동기 룰 적용)
-- [ ] **이전 세션 이월**: 광고주에게 받아둘 출판사 스펙 5가지 (판형·PDF/X 표준·색공간·bleed·DPI)
+- [ ] **변경 Day PDF 재빌드 + zip 갱신** — 철자 점검으로 ~20개 Day가 추가로 바뀌었는데, 그 Day들의 by-day PDF는 아직 옛 내용이고 바탕화면 zip엔 처음 6개만 들어있음. 전체(6+20=26개) 재생성하려면 `tools/gen_pdf_today.py` 의 `DAYS` 리스트를 26개로 바꿔 실행 → 중단 지점: 그 리스트만 교체하면 됨
+- [ ] **한글 번역 오타 점검** — 이번 점검은 영어만(영어 사전). `저녁을`(원래 자녁을) 같은 한글 오타는 미점검. 같은 방식 어려움(한글 사전 필요) — 별도 접근 필요
+- [ ] **이미지 파일명 잔존 오타 정리** — `tocuh_*.jpg`, `share_the_inforamtion.jpg`, `keep_the_inforamtion.jpg` 등 src 파일명엔 오타 남음. 표시엔 영향 없어 의도적으로 안 건드림. 정리하려면 실제 jpg rename + HTML src 동시 수정 필요
 
 ## 결정사항 / 주의
-- **톤 격식체 유지** — `memory/tone-formal.md` 의 "~입니다/~해주세요" 룰 적용 중
-- **PDF·HTML 동기 룰** — book-lite.html 변경(nocover=1 추가)으로 라이브 URL 와 250개 by-day PDF 가 동기 상태. 이후 HTML 변경 시 by-day PDF 도 재빌드 필요
-- **표지 3장 제외 정책** — `?nocover=1` 로 모든 by-day PDF 가 시트 4장(=청크 페이지 4)만 포함. 표지/책소개 빠짐
-- **슬러그 출처** — `img-lite/final/day{N}/{NN}_{chunk}` 경로 grep 자동 추출, 같은 청크 중복 제거하지 않고 등장 순 그대로 (Day 1: have-change-start)
-- **Chrome headless 함정 2건**
-  - (1) worker_id 를 `idx % 8` 로 할당하면 같은 user-data-dir 두 Chrome 충돌 → `threading.get_ident()` 로 thread-local dir 필수
-  - (2) 8 worker 동시 + 120s timeout 은 부하 과다로 50KB 깨진 PDF 양산. **4 worker + 240s timeout + 200KB 임계 검증** 조합이 안정
-- **검증 4중 체크** — `tools/validate_pdfs.py --full` 로 전수 검증 가능 (페이지 수·Day 번호 일치·청크 단어 일치·파일 크기)
-- **PDF 정책 불변** — 사용자 명시 명령 시만 PDF 작업 진입. Claude 자가 발의 X (이전 HANDOFF 명시 정책 유지)
-- **py 출력 인코딩 함정** — Windows cp949 환경에서 em dash(`—`) 등 비-cp949 글자 print 시 UnicodeEncodeError. `sys.stdout.reconfigure(encoding="utf-8")` + `$env:PYTHONIOENCODING='utf-8'` 필수
+- **톤 격식체 유지** — `memory/tone-formal.md` "~입니다/~해주세요" 적용 중 (응답 박스 구조는 유지)
+- **PDF·HTML 동기 룰** ([[pdf-html-sync]]) — book-lite.html 이 이번 세션에 다수 변경됨 → 변경된 Day의 by-day PDF·라이브 PDF Release 는 동기 깨진 상태. 광고주 전달 전 재빌드 필요
+- **철자 점검 방법** — 책끼리 비교(self-corpus)는 sandwich/cheek 등 정상 단어 523개 오탐 → **폐기**. pyspellchecker(실제 사전)만 사용. 시각 영어 텍스트(h3 + eng-sentence)만 대상
+- **의도적으로 남긴 단어 6종** (사전엔 없지만 정상): `KakaoTalk`(상표)·`app`·`cafe`·`kickboard`·`chunking`(브랜드)·`quot`(`&quot;` 부호 잔해). 다음 세션에서 이것들 "오타"로 다시 고치지 말 것
+- **이미지 파일명 오타는 일부러 보존** — 표시 텍스트(h3)만 고침. 파일명까지 맞추는 건 사용자 명시 지시 시만
+- **py 출력 인코딩** — `sys.stdout.reconfigure(encoding="utf-8")` + `PYTHONIOENCODING=utf-8` 필수 (Windows cp949 한글 print)
+- **PDF 재생성 함정 (이전 세션 이월)** — 4 worker + 240s timeout + 200KB 임계 검증 조합 안정. gen_pdf_today.py 는 6개라 단일 스레드 순차로 처리
 
 ## 주요 산출물 경로
-- 개별 PDF: `pdf-output/by-day/{01_Hope-and-Practice ... 09_Evening-Routine}/day{N}_{slug}.pdf` (250개)
-- 폴더별 zip: `pdf-output/zip/{01_Hope-and-Practice ... 09_Evening-Routine}.zip` (9개, 합 834.4MB)
-- 마스터 zip: `pdf-output/chunking-all-9folders.zip` (834.5MB, 9 zip 내장)
-- 생성 스크립트: `tools/gen_pdf_by_day.py`, `tools/validate_pdfs.py`
-- HTML 변경: `book-lite.html` line 326~349 (`?nocover=1` 파라미터 처리)
+- 정본 HTML: `book-lite.html` (라이브: minjunbyeon-netizen.github.io/chunking-book-lite/book-lite.html)
+- 오늘 zip: `C:\Users\USER\Desktop\청킹_오타수정_20260602.zip` (6개 Day PDF — 12·23·39·40·77·228)
+- 신설 스크립트: `tools/gen_pdf_today.py`, `tools/spellcheck_book.py`, `tools/fix_spelling.py`
+- 기존 by-day PDF: `pdf-output/by-day/{01~09 폴더}/day{N}_{slug}.pdf`
 
-## 재생성 명령 (필요 시)
+## 재실행 명령 (필요 시)
 ```powershell
-# 로컬 서버 (포트 8765)
-python -m http.server 8765
-
-# 250개 by-day PDF 재생성 (skip-if-exists 내장)
+# 영어 철자 재점검 (사전 기반)
 $env:PYTHONIOENCODING='utf-8'
-python tools\gen_pdf_by_day.py
+python tools\spellcheck_book.py
 
-# 전수 검증
-python tools\validate_pdfs.py --full
+# 변경 Day PDF 재생성 + 바탕화면 zip (DAYS 리스트 수정 후)
+python -m http.server 8765   # 별도 창
+python tools\gen_pdf_today.py
 ```
 
 ## 다음 세션 권장 첫 프롬프트
