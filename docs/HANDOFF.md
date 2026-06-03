@@ -1,60 +1,66 @@
-# HANDOFF - 2026-06-02 23:50
+# HANDOFF - 2026-06-03 19:48
 
-> 직전 세션: book-lite.html 오타 정정 (사용자 지정 4건 → 책 전체 영어 철자 점검까지 확대) + 오늘 고친 Day PDF 재빌드·바탕화면 zip
+> 직전 세션: 한글 글로스 전수 검수(5,996쌍) → 오타·오역 12건 도출 + 매니저 보고용 PDF/메일 작성.
+> **다음 세션 트리거: 매니저 답신 오면 A·B 9건(즉시) + C 3건(매니저 결정 따라) 정정.**
 
-## 완료
-- [x] 사용자 지정 오타 4건 정정 (book-lite.html)
-  - Day 12 `마련하다 자녁을` → `저녁을` (line 4267)
-  - Day 23 `Buttonin up my shirt` → `Buttoning` (line 7902, eng-sentence)
-  - Day 39 `share the inforamtion` → `information` (h3, line 12963)
-  - Day 40 `시작하다 시작을` → `시즌을` (open the season, line 13247)
-- [x] 추가 발견 2건 정정: Day 77 `keep the inforamtion`→`information`, Day 228 `tocuh the button`→`touch`
-- [x] Day 228 잔여 `tocuh` 5건 정정 (cheek/face/hair/shoulder/screen → touch)
-- [x] 오늘 고친 6개 Day(12·23·39·40·77·228) PDF 재생성 + 바탕화면 zip
-  - `tools/gen_pdf_today.py` 신설 — DAYS 리스트만 삭제 후 재생성 + Desktop zip
-  - 산출물: `C:\Users\USER\Desktop\청킹_오타수정_20260602.zip` (6 PDF, 20.7MB)
-  - pypdf 텍스트 추출로 6개 전부 교정 반영·옛 오타 제거 검증 통과
-- [x] **책 전체 영어 철자 전수 점검** (사용자 옵션 1 선택)
-  - `tools/spellcheck_book.py` — pyspellchecker(사전) 기반, h3 + eng-sentence 만 스캔
-  - `tools/fix_spelling.py` — 명백 오타 21종 일괄 정정 (word-boundary regex)
-  - 28군데 정정: telent→talent(7) / believ→believe(2) / achieveing·afffection·cenvention·Christams·cinamon·ckicken·cofffee·feelingss·grabing·hepls·heIps·llullaby·meetting·memu·opportuity·Pouringg·Preapring·schdeule·vacatioon(각 1)
-  - 영향 Day 약 20개: 18·20·37·56·64·67·86·100·105·109·133·135·139·141·142·154·165·183·215·236
-- [x] pyspellchecker 설치 (pip, MIT)
-- [x] 모든 변경 commit + push (origin/master = chunking-book-lite repo, 라이브 URL 반영됨)
+## 오늘 완료
+- [x] 한글 조사 오타 2건 정정 (이미 라이브 반영·푸시 완료)
+  - Day 218 `찾다 에스컬레이털를` → `에스컬레이터를`
+  - Day 168 `영양분를 주다 식물에게` → `영양분을`
+- [x] 글로스 5,996쌍 전수 검수 (10구간 병렬 에이전트) → 12건 도출
+- [x] 검수 보고 HTML/PDF 생성 + 바탕화면 저장
+  - `오타검수_보고.html`, `오타검수_보고.pdf` (프로젝트 루트)
+  - `C:\Users\USER\Desktop\청킹_오타검수_보고.pdf`
+- [x] 매니저 보고용 메일 초안 작성 (아래 "메일 초안" 참고 — 아직 발송 안 함)
+- [x] 신설 스크립트: `tools/check_korean_particle.py`(조사 점검), `tools/audit_gloss_dump.py`(검수용 덤프 생성)
 
-## 진행중
-- (없음 — 오타 정정·점검 작업은 모두 닫힘)
+## 대기 (매니저 답신 후 실행) — 정정 목록 SSOT
 
-## 대기 (사용자 선택지)
-- [ ] **변경 Day PDF 재빌드 + zip 갱신** — 철자 점검으로 ~20개 Day가 추가로 바뀌었는데, 그 Day들의 by-day PDF는 아직 옛 내용이고 바탕화면 zip엔 처음 6개만 들어있음. 전체(6+20=26개) 재생성하려면 `tools/gen_pdf_today.py` 의 `DAYS` 리스트를 26개로 바꿔 실행 → 중단 지점: 그 리스트만 교체하면 됨
-- [ ] **한글 번역 오타 점검** — 이번 점검은 영어만(영어 사전). `저녁을`(원래 자녁을) 같은 한글 오타는 미점검. 같은 방식 어려움(한글 사전 필요) — 별도 접근 필요
-- [ ] **이미지 파일명 잔존 오타 정리** — `tocuh_*.jpg`, `share_the_inforamtion.jpg`, `keep_the_inforamtion.jpg` 등 src 파일명엔 오타 남음. 표시엔 영향 없어 의도적으로 안 건드림. 정리하려면 실제 jpg rename + HTML src 동시 수정 필요
+> 전부 `book-lite.html` 의 `<h3>…</h3><span>한글</span>` gloss span 수정. 이미지 src·영어 h3 은 안 건드림.
+> **수정은 매니저 확인 전까지 금지 (사용자 명시 "절대 미리 바꾸지 말 것").**
+
+### A. 철자/조사 오타 6건 (확정 — 답신 오면 바로)
+- [ ] Day 85  take a bribe       `받다 뇌믈을` → `받다 뇌물을`
+- [ ] Day 98  lose the key       `잃다 열쇄를` → `잃다 열쇠를`
+- [ ] Day 148 receive the deposit `받다 보증금` → `받다 보증금을` (조사 누락)
+- [ ] Day 191 face the difficulty `직면하다 어려음을` → `직면하다 어려움을`
+- [ ] Day 197 prepare thoroughly  `준비하다 철저학게` → `준비하다 철저하게`
+- [ ] Day 205 wait for the subway `기다리다 자하철을` → `기다리다 지하철을`
+
+### B. 오역 3건 (확정 — 답신 오면 바로)
+- [ ] Day 45  take a chance      `받아들이다 위험을` → `받아들이다 기회를`
+- [ ] Day 73  deserve the credit `받을 만하다 신뢰를` → `받을 만하다 공로를`
+      ⚠ `받을 만하다 신뢰를` 은 HTML에 2곳 — Edit 시 반드시 `<h3>deserve the credit</h3>` 줄만 대상.
+      나머지 `<h3>deserve the trust</h3>` 의 신뢰를 는 정상이라 손대면 안 됨.
+- [ ] Day 109 have a sweet voice `가지고 있다 좋은 목소리를` → `가지고 있다 달콤한 목소리를`
+
+### C. 경계 사례 3건 (매니저 결정 따라 — 고칠지 말지 답 받고)
+- [ ] Day 45  take criticism        `받다 비난을` → `받다 비판을`  (h3 take criticism 줄만)
+- [ ] Day 73  deserve the criticism `받을 만하다 비난을` → `받을 만하다 비판을`
+      ⚠ 같은 Day73 `deserve the blame` 의 비난을은 정상 — 손대지 말 것.
+- [ ] Day 124 drink the cider       `마시다 사과주스를` → `마시다 사이다를`  (cider 미국식=사과주스라 경계)
+
+### D. 영어 원문 측 오타 3건 (참고 — 별도 결정)
+- [ ] Day 179 `buy a ballon` → `balloon` (영어 철자)
+- [ ] `stand in a  line`, `check the  zip code` — 영어에 공백 2칸
+- [ ] Day 195 `escape from the crowd` 군중에게서 → 군중에서 (의미는 통함)
+
+### 정정 후 필수 후속
+- [ ] [[pdf-html-sync]] — 바뀐 Day들 by-day PDF 재빌드 (`tools/gen_pdf_today.py` DAYS 리스트 교체)
+      대상 Day: 218·168 + (확정 시) 85·98·148·191·197·205·45·73·109 + (경계 채택분)
+- [ ] commit + push (라이브 URL 자동 반영)
 
 ## 결정사항 / 주의
-- **톤 격식체 유지** — `memory/tone-formal.md` "~입니다/~해주세요" 적용 중 (응답 박스 구조는 유지)
-- **PDF·HTML 동기 룰** ([[pdf-html-sync]]) — book-lite.html 이 이번 세션에 다수 변경됨 → 변경된 Day의 by-day PDF·라이브 PDF Release 는 동기 깨진 상태. 광고주 전달 전 재빌드 필요
-- **철자 점검 방법** — 책끼리 비교(self-corpus)는 sandwich/cheek 등 정상 단어 523개 오탐 → **폐기**. pyspellchecker(실제 사전)만 사용. 시각 영어 텍스트(h3 + eng-sentence)만 대상
-- **의도적으로 남긴 단어 6종** (사전엔 없지만 정상): `KakaoTalk`(상표)·`app`·`cafe`·`kickboard`·`chunking`(브랜드)·`quot`(`&quot;` 부호 잔해). 다음 세션에서 이것들 "오타"로 다시 고치지 말 것
-- **이미지 파일명 오타는 일부러 보존** — 표시 텍스트(h3)만 고침. 파일명까지 맞추는 건 사용자 명시 지시 시만
-- **py 출력 인코딩** — `sys.stdout.reconfigure(encoding="utf-8")` + `PYTHONIOENCODING=utf-8` 필수 (Windows cp949 한글 print)
-- **PDF 재생성 함정 (이전 세션 이월)** — 4 worker + 240s timeout + 200KB 임계 검증 조합 안정. gen_pdf_today.py 는 6개라 단일 스레드 순차로 처리
+- **톤 격식체 유지** ([[tone-formal]]) — "~입니다/~해주세요"
+- **수정 보류 룰** — 사용자가 "절대 미리 바꾸지 말고 보고부터" 지시. 매니저 답신 전 gloss 수정 금지
+- **검수 방식** — pyspellchecker(영어) + 조사 규칙 코드(`check_korean_particle.py`) + LLM 통독(10구간). 청킹 어순·직역체는 오류 아님(플래그 X)
+- **검수 덤프 재생성** — `python tools\audit_gloss_dump.py` → `tools/_gloss_audit.txt` (5,996행, 임시 산출물)
+- 라이브 URL: minjunbyeon-netizen.github.io/chunking-book-lite/book-lite.html
 
-## 주요 산출물 경로
-- 정본 HTML: `book-lite.html` (라이브: minjunbyeon-netizen.github.io/chunking-book-lite/book-lite.html)
-- 오늘 zip: `C:\Users\USER\Desktop\청킹_오타수정_20260602.zip` (6개 Day PDF — 12·23·39·40·77·228)
-- 신설 스크립트: `tools/gen_pdf_today.py`, `tools/spellcheck_book.py`, `tools/fix_spelling.py`
-- 기존 by-day PDF: `pdf-output/by-day/{01~09 폴더}/day{N}_{slug}.pdf`
-
-## 재실행 명령 (필요 시)
-```powershell
-# 영어 철자 재점검 (사전 기반)
-$env:PYTHONIOENCODING='utf-8'
-python tools\spellcheck_book.py
-
-# 변경 Day PDF 재생성 + 바탕화면 zip (DAYS 리스트 수정 후)
-python -m http.server 8765   # 별도 창
-python tools\gen_pdf_today.py
-```
+## 메일 초안 (매니저 발송용 — 미발송)
+제목: [청킹 교재] 글로스 오타·오역 검수 결과 보고 (정정 전 확인 요청)
+- 본문 요약: A 철자/조사 6 · B 오역 3 · C 경계 3 · D 영어측 3. A·B 9건 즉시 가능, C 3건 결정 요청.
+- 첨부: 청킹_오타검수_보고.pdf
 
 ## 다음 세션 권장 첫 프롬프트
-`/resume`
+`/resume` → 매니저 답신 내용 알려주시면 A·B 정정 + C 결정분 반영
