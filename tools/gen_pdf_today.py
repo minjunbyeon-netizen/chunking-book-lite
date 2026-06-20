@@ -24,9 +24,9 @@ from gen_pdf_by_day import (  # noqa: E402
     TMP_BASE,
 )
 
-DAYS = [12, 23, 39, 40, 77, 228]
+DAYS = [179, 204, 224]
 DESKTOP = Path(r"C:\Users\USER\Desktop")
-ZIP_PATH = DESKTOP / "청킹_오타수정_20260602.zip"
+ZIP_PATH = DESKTOP / "청킹_수정_Day179-204-224_20260621.zip"
 
 
 def main():
